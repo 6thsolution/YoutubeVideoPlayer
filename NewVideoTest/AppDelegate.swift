@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  NewVideoTest
 //
-//  Created by papyrus on 9/3/17.
+//  Created by Mehdi Sohrabi (mehdok@gmail.com) on 9/3/17.
 //  Copyright © 2017 SixthSolution. All rights reserved.
 //
 

@@ -14,6 +14,11 @@
 		8236A6621F5C1130006F8F26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8236A6601F5C1130006F8F26 /* LaunchScreen.storyboard */; };
 		8236A66D1F5C1130006F8F26 /* NewVideoTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236A66C1F5C1130006F8F26 /* NewVideoTestTests.swift */; };
 		8236A6781F5C1130006F8F26 /* NewVideoTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236A6771F5C1130006F8F26 /* NewVideoTestUITests.swift */; };
+		8236A6871F5C1389006F8F26 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236A6861F5C1389006F8F26 /* Player.swift */; };
+		8236A6891F5C13A6006F8F26 /* JSPlayer.html in Resources */ = {isa = PBXBuildFile; fileRef = 8236A6881F5C13A6006F8F26 /* JSPlayer.html */; };
+		8236A68C1F5C2939006F8F26 /* PagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236A68B1F5C2939006F8F26 /* PagerVC.swift */; };
+		8236A6911F5C2F6D006F8F26 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236A68F1F5C2F6D006F8F26 /* PlayerView.swift */; };
+		8236A6921F5C2F6D006F8F26 /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8236A6901F5C2F6D006F8F26 /* PlayerView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +52,11 @@
 		8236A6731F5C1130006F8F26 /* NewVideoTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewVideoTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8236A6771F5C1130006F8F26 /* NewVideoTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVideoTestUITests.swift; sourceTree = "<group>"; };
 		8236A6791F5C1130006F8F26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8236A6861F5C1389006F8F26 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		8236A6881F5C13A6006F8F26 /* JSPlayer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = JSPlayer.html; sourceTree = "<group>"; };
+		8236A68B1F5C2939006F8F26 /* PagerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerVC.swift; sourceTree = "<group>"; };
+		8236A68F1F5C2F6D006F8F26 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		8236A6901F5C2F6D006F8F26 /* PlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +107,8 @@
 		8236A6561F5C1130006F8F26 /* NewVideoTest */ = {
 			isa = PBXGroup;
 			children = (
+				8236A68A1F5C28ED006F8F26 /* Pager */,
+				8236A6851F5C1333006F8F26 /* WebViewPlayer */,
 				8236A6571F5C1130006F8F26 /* AppDelegate.swift */,
 				8236A6591F5C1130006F8F26 /* ViewController.swift */,
 				8236A65B1F5C1130006F8F26 /* Main.storyboard */,
@@ -123,6 +135,25 @@
 				8236A6791F5C1130006F8F26 /* Info.plist */,
 			);
 			path = NewVideoTestUITests;
+			sourceTree = "<group>";
+		};
+		8236A6851F5C1333006F8F26 /* WebViewPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				8236A6861F5C1389006F8F26 /* Player.swift */,
+				8236A6881F5C13A6006F8F26 /* JSPlayer.html */,
+			);
+			path = WebViewPlayer;
+			sourceTree = "<group>";
+		};
+		8236A68A1F5C28ED006F8F26 /* Pager */ = {
+			isa = PBXGroup;
+			children = (
+				8236A68B1F5C2939006F8F26 /* PagerVC.swift */,
+				8236A68F1F5C2F6D006F8F26 /* PlayerView.swift */,
+				8236A6901F5C2F6D006F8F26 /* PlayerView.xib */,
+			);
+			path = Pager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,7 +268,9 @@
 			files = (
 				8236A6621F5C1130006F8F26 /* LaunchScreen.storyboard in Resources */,
 				8236A65F1F5C1130006F8F26 /* Assets.xcassets in Resources */,
+				8236A6891F5C13A6006F8F26 /* JSPlayer.html in Resources */,
 				8236A65D1F5C1130006F8F26 /* Main.storyboard in Resources */,
+				8236A6921F5C2F6D006F8F26 /* PlayerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +295,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8236A68C1F5C2939006F8F26 /* PagerVC.swift in Sources */,
 				8236A65A1F5C1130006F8F26 /* ViewController.swift in Sources */,
+				8236A6871F5C1389006F8F26 /* Player.swift in Sources */,
+				8236A6911F5C2F6D006F8F26 /* PlayerView.swift in Sources */,
 				8236A6581F5C1130006F8F26 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

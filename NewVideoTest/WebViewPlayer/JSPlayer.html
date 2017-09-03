@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="player"></div>
+        
+        <script>
+            var tag = document.createElement('script');
+            
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            
+            var bridge = "youtube_bridge";
+            var currentVideoId;
+            
+            function onYouTubeIframeAPIReady() {
+                // every thing is ready for play and buffer the video
+                window.location.href = bridge + "://onYouTubeIframeAPIReady";
+            }
+        
+            function playVideo(width, height, videoId) {
+            
+            }
+        </script>
+    </body>
+</html>
