@@ -15,11 +15,13 @@ class PlayerView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        player.playerDelegate = self
+        
         self.view.addSubview(player)
         
-        player.playVideoWithId(videoId: videoId)
-        
-        print(videoId)
+        if player.isApiReady() {
+            play()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,15 +29,15 @@ class PlayerView: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    fileprivate func play() {
+        player.playVideoWithId(videoId: videoId)
+        
+        print("play ", videoId)
     }
-    */
+}
 
+extension PlayerView: PlayerDelegate {
+    func apiIsReady() {
+        play()
+    }
 }

@@ -24,7 +24,9 @@ class PagerVC: UIPageViewController {
         videoList = ["OmQEsGcwVZY", "186oNNE6LFM", "DEySgiwoMpA", "SdKqR_CBRBk"]
 
         webviewPlayer = Player(frame: self.view.bounds)
-        webviewPlayer.initJSPlayer(videoList: videoList, duration: 5, quality: Player.VideoQuality.small)
+        webviewPlayer.videoList = videoList
+        webviewPlayer.duration = 5
+        webviewPlayer.quality = Player.VideoQuality.small
         
         self.delegate = self
         self.dataSource = self

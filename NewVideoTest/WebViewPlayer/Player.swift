@@ -20,10 +20,12 @@ class Player: UIWebView {
     weak var playerDelegate: PlayerDelegate? = nil
     
     fileprivate var apiReady = false
-    fileprivate var videoList: [String]? = nil
     fileprivate var currentPlayingVideo: String? = nil
     fileprivate var isPlaying = false
     fileprivate var playerStatus: PlayerStatus! = PlayerStatus.unstarted
+    var duration: Int! = 5
+    var quality: VideoQuality! = VideoQuality.defalt
+    var videoList: [String]? = nil
 
     fileprivate enum ApiMessage: String {
         case bridge = "youtube_bridge://"
@@ -76,7 +78,7 @@ class Player: UIWebView {
     
     private func loadPlayer() {
         do {
-            guard let filePath = Bundle.main.path(forResource: "youtube", ofType: "html") else {
+            guard let filePath = Bundle.main.path(forResource: "JSPlayer", ofType: "html") else {
                 return
             }
             
@@ -87,18 +89,17 @@ class Player: UIWebView {
             fatalError("can not load html")
         }
     }
-    
-    func initJSPlayer(videoList: [String], duration: Int, quality: VideoQuality = VideoQuality.defalt) {
-        apiInitJSPlayer(videoList, duration, quality)
-    }
 }
 
 extension Player: UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         let url = request.url?.absoluteString
-        print(url)
-        if (url?.range(of: ApiMessage.bridge.rawValue)) != nil {
-            if url?.range(of: ApiMessage.apiReady.rawValue) != nil {
+//        print(url)
+        if let apiRange = url?.range(of: ApiMessage.bridge.rawValue) {
+            print(url?.substring(from: apiRange.lowerBound) ?? "")
+            if let range = url?.range(of: ApiMessage.apiReady.rawValue) {
+                //let msg = url?.substring(from: range.lowerBound)
+                
                 apiReady = true
                 if delegate != nil {
                     playerDelegate?.apiIsReady()
@@ -109,6 +110,12 @@ extension Player: UIWebViewDelegate {
         }
         
         return true
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        let loc = webView.stringByEvaluatingJavaScript(from: "window.location")
+        print("webViewDidFinishLoad", loc)
+        apiInitJSPlayer(videoList!, duration, quality)
     }
 }
 
@@ -133,7 +140,8 @@ extension Player {
 
 extension Player {
     fileprivate func apiPlayVideoById(_ videoId: String) {
-        let query = String(format: "playVideo('&d', '&d', '&@');",
+        print("apiPlayVideoById", videoId, Int(self.frame.width), Int(self.frame.height))
+        let query = String(format: "playVideo('%d', '%d', '%@');",
                            Int(self.frame.width),
                            Int(self.frame.height),
                            videoId)
@@ -141,7 +149,7 @@ extension Player {
     }
     
     fileprivate func apiInitJSPlayer(_ videoList: [String], _ duration: Int, _ quality: VideoQuality) {
-        let query = String(format: "start(&d, '&@');",
+        let query = String(format: "start(%d, '%@');",
                            duration,
                            quality.rawValue)
         stringByEvaluatingJavaScript(from: query)

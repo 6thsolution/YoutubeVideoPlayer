@@ -2,9 +2,10 @@
 <html>
     
     <body>
-        <div id="player"></div>
         
         <script>
+            var bridge = "youtube_bridge";
+            
             var tag = document.createElement('script');
             
             tag.src = "https://www.youtube.com/iframe_api";
@@ -27,7 +28,6 @@
             }
         }
         
-        var bridge = "youtube_bridge";
         var currentVideoId;
         
         // array of video ids
@@ -50,6 +50,8 @@
         }
         
         function playVideo(width, height, videoId) {
+            window.location.href = bridge + "://playVideo#" + width + "#" + height + "#" + videoId;
+            
             currentVideoId = videoId;
             
             var playerModel = playerBuffer[videoId];
@@ -107,6 +109,12 @@
         
         function showDiv(divId, show) {
             var div = document.getElementById(divId);
+            
+            // first hide all div
+            var divs = document.getElementsByTagName("div");
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].style.display = 'none';
+            }
             
             if (show) {
                 div.style.display = 'block';
@@ -206,7 +214,7 @@
             window.location.href = bridge + "://onPlayerStateChange#" + state + "#" + playerId
         }
         
-        }
+        
             </script>
     </body>
     
