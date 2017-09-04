@@ -20,10 +20,12 @@ class PagerVC: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        webviewPlayer = Player(frame: self.view.bounds)
         //TODO fill video list for test
         videoList = ["OmQEsGcwVZY", "186oNNE6LFM", "DEySgiwoMpA", "SdKqR_CBRBk"]
 
+        webviewPlayer = Player(frame: self.view.bounds)
+        webviewPlayer.initJSPlayer(videoList: videoList, duration: 5, quality: Player.VideoQuality.small)
+        
         self.delegate = self
         self.dataSource = self
         

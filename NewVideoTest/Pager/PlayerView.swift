@@ -17,6 +17,8 @@ class PlayerView: UIViewController {
 
         self.view.addSubview(player)
         
+        player.playVideoWithId(videoId: videoId)
+        
         print(videoId)
     }
 

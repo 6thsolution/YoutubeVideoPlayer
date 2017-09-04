@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <body>
         <div id="player"></div>
         
@@ -10,17 +11,203 @@
             var firstScriptTag = document.getElementsByTagName('script')[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             
-            var bridge = "youtube_bridge";
-            var currentVideoId;
-            
             function onYouTubeIframeAPIReady() {
                 // every thing is ready for play and buffer the video
                 window.location.href = bridge + "://onYouTubeIframeAPIReady";
             }
         
-            function playVideo(width, height, videoId) {
-            
+        //////////
+        class PlayerModel {
+            constructor(id, player, ready, state, lastAccess) {
+                this.id = id; // playerId, videoId, divId
+                this.player = player;
+                this.ready = ready;
+                this.state = state;
+                this.lastAccess = lastAccess;
             }
-        </script>
+        }
+        
+        var bridge = "youtube_bridge";
+        var currentVideoId;
+        
+        // array of video ids
+        var videoList = [];
+        
+        // a dictionary of videoId:PlayerModel with limited length
+        var playerBuffer = {};
+        
+        var videoQuality;
+        var videoDuration;
+        
+        // Call this function at the start to set parameter
+        function start(quality, duration) {
+            videoQuality = quality;
+            videoDuration = duration;
+        }
+        
+        function addVideoId(videoId) {
+            videoList.push(videoId);
+        }
+        
+        function playVideo(width, height, videoId) {
+            currentVideoId = videoId;
+            
+            var playerModel = playerBuffer[videoId];
+            if (playerModel) {
+                // Player exist in buffer, seek to first and play again
+                playVideoWithID(videoId);
+            } else {
+                // create player and add to buffer
+                createPlayerAndAddToBuffer(width, height, videoId);
+            }
+        }
+        
+        function createPlayerAndAddToBuffer(width, height, videoId) {
+            if (playerBuffer[videoId]) {
+                // video exist in buffer
+                return;
+            }
+            
+            createDiv(videoId);
+            var player = cratePalyer(width, height, videoId);
+            var playerModel = new PlayerModel(videoId, player, false, YT.PlayerState.UNSTARTED, new Date().getTime());
+            
+            addPlayerToBuffer(videoId, playerModel);
+            
+            playVideoWithID(videoId);
+            
+        }
+        
+        function playVideoWithID(videoId) {
+            // video can not be played if it's not in buffer
+            var playerModel = playerBuffer[videoId];
+            if (playerModel) {
+                showDiv(videoId, true);
+                playerModel.player.seekTo(0);
+                playerModel.player.playVideo();
+                playerModel.player.setPlaybackQuality(videoQuality);
+                playerModel.state = YT.PlayerState.PLAYING;
+            }
+        }
+        
+        function addPlayerToBuffer(videoId, playerModel) {
+            // TODO handle buffer
+            playerBuffer[videoId] = playerModel;
+        }
+        
+        function createDiv(videoId) {
+            var div = document.createElement('div');
+            div.setAttribute("id", videoId)
+            
+            document.getElementsByTagName('body')[0].appendChild(div);
+            
+            // hide div when it create at first place
+            showDiv(videoId, false)
+        }
+        
+        function showDiv(divId, show) {
+            var div = document.getElementById(divId);
+            
+            if (show) {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+        }
+        
+        function cratePalyer(width, height, videoId) {
+            var player = new YT.Player(videoId, {
+                                       id: videoId,
+                                       height: height,
+                                       width: width,
+                                       videoId: videoId,
+                                       playerVars: {
+                                       'autoplay': 1,
+                                       'controls': '0',
+                                       'enablejsapi': '1',
+                                       'playsinline': '1',
+                                       'showinfo': '0' //,
+                                       //'start': '0',
+                                       //'end': '5'
+                                       },
+                                       events: {
+                                       'onReady': onPlayerReady,
+                                       'onError': onPlayerError,
+                                       'onStateChange': onPlayerStateChange,
+                                       'onPlaybackQualityChange': onPlayerPlaybackQualityChange
+                                       }
+                                       });
+                                       
+                                       //player.mute();
+                                       return player;
+        }
+        
+        // Event function
+        
+        function onPlayerReady(event) {
+            var playerId = event.target.getVideoData()['video_id']
+            
+            window.location.href = bridge + "://onPlayerReady#" + playerId;
+            
+            if (playerId == currentVideoId) {
+                playVideoWithID(playerId);
+            }
+        }
+        
+        function onPlayerError(event) {
+            var playerId = event.target.getVideoData()['video_id']
+            window.location.href = bridge + "://onPlayerError#" + playerId;
+        }
+        
+        function onPlayerPlaybackQualityChange(event) {
+            var playerId = event.target.getVideoData()['video_id']
+            window.location.href = bridge + "://onPlayerPlaybackQualityChange#" + playerId + "#" + event.target.getPlaybackQuality();
+        }
+        
+        function onPlayerStateChange(event) {
+            var playerId = event.target.getVideoData()['video_id'];
+            var playerModel = playerBuffer[playerId];
+            playerModel.state = event.data;
+            
+        }
+        
+        function restartCurrentVideo() {
+            var playerModel = playerBuffer[currentVideoId];
+            if (playerModel) {
+                playerModel.player.seekTo(0);
+                playerModel.player.playVideo();
+            }
+        }
+        
+        function onPlayerStateChange(event) {
+            var state = "none";
+            if (event.data == YT.PlayerState.PLAYING) {
+                if (playerId != currentVideoId) {
+                    event.target.stopVideo();
+                    event.target.seekTo(0);
+                    playerModel.state = YT.PlayerState.PAUSED;
+                } else {
+                    setTimeout(restartCurrentVideo, videoDuration * 1000);
+                }
+                
+                state = "YT.PlayerState.PLAYING";
+            } else if (event.data == YT.PlayerState.UNSTARTED) {
+                state = "YT.PlayerState.UNSTARTED";
+            } else if (event.data == YT.PlayerState.ENDED) {
+                state = "YT.PlayerState.ENDED";
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                state = "YT.PlayerState.PAUSED";
+            } else if (event.data == YT.PlayerState.BUFFERING) {
+                state = "YT.PlayerState.BUFFERING";
+            } else if (event.data == YT.PlayerState.CUED) {
+                state = "YT.PlayerState.CUED";
+            }
+            
+            window.location.href = bridge + "://onPlayerStateChange#" + state + "#" + playerId
+        }
+        
+        }
+            </script>
     </body>
+    
 </html>

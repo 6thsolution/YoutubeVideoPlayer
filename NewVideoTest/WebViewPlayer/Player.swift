@@ -41,6 +41,16 @@ class Player: UIWebView {
         case ready = "YT.PlayerState.READY"
     }
     
+    enum VideoQuality: String {
+        case small = "small"
+        case medium = "medium"
+        case large = "large"
+        case hd720 = "hd720"
+        case hd1080 = "hd1080"
+        case highres = "highres"
+        case defalt = "default"
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -77,12 +87,16 @@ class Player: UIWebView {
             fatalError("can not load html")
         }
     }
+    
+    func initJSPlayer(videoList: [String], duration: Int, quality: VideoQuality = VideoQuality.defalt) {
+        apiInitJSPlayer(videoList, duration, quality)
+    }
 }
 
 extension Player: UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         let url = request.url?.absoluteString
-        
+        print(url)
         if (url?.range(of: ApiMessage.bridge.rawValue)) != nil {
             if url?.range(of: ApiMessage.apiReady.rawValue) != nil {
                 apiReady = true
@@ -119,9 +133,22 @@ extension Player {
 
 extension Player {
     fileprivate func apiPlayVideoById(_ videoId: String) {
-        var query = String(format: "playVideo('&d', '&d', '&@');",
+        let query = String(format: "playVideo('&d', '&d', '&@');",
                            Int(self.frame.width),
                            Int(self.frame.height),
                            videoId)
+        stringByEvaluatingJavaScript(from: query)
+    }
+    
+    fileprivate func apiInitJSPlayer(_ videoList: [String], _ duration: Int, _ quality: VideoQuality) {
+        let query = String(format: "start(&d, '&@');",
+                           duration,
+                           quality.rawValue)
+        stringByEvaluatingJavaScript(from: query)
+        
+        for videoId in videoList {
+            let js = String(format: "addVideoId('%@');", videoId)
+            stringByEvaluatingJavaScript(from: js)
+        }
     }
 }
