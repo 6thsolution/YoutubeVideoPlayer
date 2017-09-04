@@ -133,6 +133,12 @@ extension Player {
         }
     }
     
+    func stopVideo(videoId: String) {
+        if apiReady == true {
+            apiStopVideoById(videoId: videoId)
+        }
+    }
+    
     func isApiReady() -> Bool {
         return apiReady
     }
@@ -158,5 +164,9 @@ extension Player {
             let js = String(format: "addVideoId('%@');", videoId)
             stringByEvaluatingJavaScript(from: js)
         }
+    }
+    
+    fileprivate func apiStopVideoById(videoId: String) {
+        
     }
 }

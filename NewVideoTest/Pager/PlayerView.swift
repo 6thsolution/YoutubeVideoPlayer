@@ -34,6 +34,12 @@ class PlayerView: UIViewController {
         
         print("play ", videoId)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if player.isApiReady() {
+            player.stopVideo(videoId: videoId)
+        }
+    }
 }
 
 extension PlayerView: PlayerDelegate {

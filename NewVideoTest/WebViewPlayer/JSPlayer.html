@@ -40,7 +40,7 @@
         var videoDuration;
         
         // Call this function at the start to set parameter
-        function start(quality, duration) {
+        function start(duration, quality) {
             videoQuality = quality;
             videoDuration = duration;
         }
@@ -61,6 +61,15 @@
             } else {
                 // create player and add to buffer
                 createPlayerAndAddToBuffer(width, height, videoId);
+            }
+        }
+        
+        function stopVideoWithID(videoId) {
+            var playerModel = playerBuffer[videoId];
+            if (playerModel) {
+                playerModel.player.stopVideo();
+                playerModel.state = YT.PlayerState.PAUSED;
+                showDiv(videoId, false);
             }
         }
         
@@ -172,16 +181,12 @@
             window.location.href = bridge + "://onPlayerPlaybackQualityChange#" + playerId + "#" + event.target.getPlaybackQuality();
         }
         
-        function onPlayerStateChange(event) {
-            var playerId = event.target.getVideoData()['video_id'];
-            var playerModel = playerBuffer[playerId];
-            playerModel.state = event.data;
-            
-        }
-        
         function restartCurrentVideo() {
+            window.location.href = bridge + "://restartCurrentVideo" + videoDuration;
+            
             var playerModel = playerBuffer[currentVideoId];
             if (playerModel) {
+                playerModel.player.pauseVideo();
                 playerModel.player.seekTo(0);
                 playerModel.player.playVideo();
             }
@@ -189,9 +194,13 @@
         
         function onPlayerStateChange(event) {
             var state = "none";
+            var playerId = event.target.getVideoData()['video_id'];
+            var playerModel = playerBuffer[playerId];
+            playerModel.state = event.data;
+            
             if (event.data == YT.PlayerState.PLAYING) {
                 if (playerId != currentVideoId) {
-                    event.target.stopVideo();
+                    event.target.pauseVideo();
                     event.target.seekTo(0);
                     playerModel.state = YT.PlayerState.PAUSED;
                 } else {
