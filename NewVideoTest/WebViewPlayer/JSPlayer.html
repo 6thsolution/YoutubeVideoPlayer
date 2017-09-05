@@ -68,12 +68,13 @@
             var playerModel = playerBuffer[videoId];
             if (playerModel) {
                 playerModel.player.stopVideo();
-                playerModel.state = YT.PlayerState.PAUSED;
+                playerModel.state = YT.PlayerState.ENDED;
                 showDiv(videoId, false);
             }
         }
         
         function createPlayerAndAddToBuffer(width, height, videoId) {
+            window.location.href = bridge + "://createPlayerAndAddToBuffer__" + videoId
             if (playerBuffer[videoId]) {
                 // video exist in buffer
                 return;
@@ -185,7 +186,7 @@
             window.location.href = bridge + "://restartCurrentVideo" + videoDuration;
             
             var playerModel = playerBuffer[currentVideoId];
-            if (playerModel) {
+            if (playerModel && playerModel.state != YT.PlayerState.ENDED) {
                 playerModel.player.pauseVideo();
                 playerModel.player.seekTo(0);
                 playerModel.player.playVideo();
