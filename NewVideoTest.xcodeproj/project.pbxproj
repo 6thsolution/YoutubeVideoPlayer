@@ -19,6 +19,13 @@
 		8236A68C1F5C2939006F8F26 /* PagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236A68B1F5C2939006F8F26 /* PagerVC.swift */; };
 		8236A6911F5C2F6D006F8F26 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236A68F1F5C2F6D006F8F26 /* PlayerView.swift */; };
 		8236A6921F5C2F6D006F8F26 /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8236A6901F5C2F6D006F8F26 /* PlayerView.xib */; };
+		82A980931F5E652200DC0D21 /* SinglePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A980921F5E652200DC0D21 /* SinglePlayerVC.swift */; };
+		82A980961F5E653700DC0D21 /* SinglePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A980941F5E653700DC0D21 /* SinglePlayerView.swift */; };
+		82A980971F5E653700DC0D21 /* SinglePlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82A980951F5E653700DC0D21 /* SinglePlayerView.xib */; };
+		82A980991F5E655400DC0D21 /* SinglePlayerWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A980981F5E655400DC0D21 /* SinglePlayerWebView.swift */; };
+		82A9809B1F5E694100DC0D21 /* SingleJSPlayer.html in Resources */ = {isa = PBXBuildFile; fileRef = 82A9809A1F5E694100DC0D21 /* SingleJSPlayer.html */; };
+		82A9809F1F5EBC7700DC0D21 /* YouTubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9809D1F5EBC7700DC0D21 /* YouTubePlayer.swift */; };
+		82A980A01F5EBC7700DC0D21 /* YTPlayer.html in Resources */ = {isa = PBXBuildFile; fileRef = 82A9809E1F5EBC7700DC0D21 /* YTPlayer.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +64,13 @@
 		8236A68B1F5C2939006F8F26 /* PagerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerVC.swift; sourceTree = "<group>"; };
 		8236A68F1F5C2F6D006F8F26 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		8236A6901F5C2F6D006F8F26 /* PlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerView.xib; sourceTree = "<group>"; };
+		82A980921F5E652200DC0D21 /* SinglePlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerVC.swift; sourceTree = "<group>"; };
+		82A980941F5E653700DC0D21 /* SinglePlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerView.swift; sourceTree = "<group>"; };
+		82A980951F5E653700DC0D21 /* SinglePlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinglePlayerView.xib; sourceTree = "<group>"; };
+		82A980981F5E655400DC0D21 /* SinglePlayerWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerWebView.swift; sourceTree = "<group>"; };
+		82A9809A1F5E694100DC0D21 /* SingleJSPlayer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SingleJSPlayer.html; sourceTree = "<group>"; };
+		82A9809D1F5EBC7700DC0D21 /* YouTubePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePlayer.swift; sourceTree = "<group>"; };
+		82A9809E1F5EBC7700DC0D21 /* YTPlayer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = YTPlayer.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +121,8 @@
 		8236A6561F5C1130006F8F26 /* NewVideoTest */ = {
 			isa = PBXGroup;
 			children = (
+				82A9809C1F5EBC5100DC0D21 /* YTPlayer */,
+				82A980911F5E64E900DC0D21 /* SinglePlayer */,
 				8236A68A1F5C28ED006F8F26 /* Pager */,
 				8236A6851F5C1333006F8F26 /* WebViewPlayer */,
 				8236A6571F5C1130006F8F26 /* AppDelegate.swift */,
@@ -154,6 +170,27 @@
 				8236A6901F5C2F6D006F8F26 /* PlayerView.xib */,
 			);
 			path = Pager;
+			sourceTree = "<group>";
+		};
+		82A980911F5E64E900DC0D21 /* SinglePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				82A980921F5E652200DC0D21 /* SinglePlayerVC.swift */,
+				82A980941F5E653700DC0D21 /* SinglePlayerView.swift */,
+				82A980951F5E653700DC0D21 /* SinglePlayerView.xib */,
+				82A980981F5E655400DC0D21 /* SinglePlayerWebView.swift */,
+				82A9809A1F5E694100DC0D21 /* SingleJSPlayer.html */,
+			);
+			path = SinglePlayer;
+			sourceTree = "<group>";
+		};
+		82A9809C1F5EBC5100DC0D21 /* YTPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				82A9809D1F5EBC7700DC0D21 /* YouTubePlayer.swift */,
+				82A9809E1F5EBC7700DC0D21 /* YTPlayer.html */,
+			);
+			path = YTPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,9 +305,12 @@
 			files = (
 				8236A6621F5C1130006F8F26 /* LaunchScreen.storyboard in Resources */,
 				8236A65F1F5C1130006F8F26 /* Assets.xcassets in Resources */,
+				82A980A01F5EBC7700DC0D21 /* YTPlayer.html in Resources */,
 				8236A6891F5C13A6006F8F26 /* JSPlayer.html in Resources */,
+				82A9809B1F5E694100DC0D21 /* SingleJSPlayer.html in Resources */,
 				8236A65D1F5C1130006F8F26 /* Main.storyboard in Resources */,
 				8236A6921F5C2F6D006F8F26 /* PlayerView.xib in Resources */,
+				82A980971F5E653700DC0D21 /* SinglePlayerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,9 +335,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82A9809F1F5EBC7700DC0D21 /* YouTubePlayer.swift in Sources */,
 				8236A68C1F5C2939006F8F26 /* PagerVC.swift in Sources */,
 				8236A65A1F5C1130006F8F26 /* ViewController.swift in Sources */,
 				8236A6871F5C1389006F8F26 /* Player.swift in Sources */,
+				82A980961F5E653700DC0D21 /* SinglePlayerView.swift in Sources */,
+				82A980991F5E655400DC0D21 /* SinglePlayerWebView.swift in Sources */,
+				82A980931F5E652200DC0D21 /* SinglePlayerVC.swift in Sources */,
 				8236A6911F5C2F6D006F8F26 /* PlayerView.swift in Sources */,
 				8236A6581F5C1130006F8F26 /* AppDelegate.swift in Sources */,
 			);
@@ -550,6 +594,7 @@
 				8236A67E1F5C1130006F8F26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8236A67F1F5C1130006F8F26 /* Build configuration list for PBXNativeTarget "NewVideoTestTests" */ = {
 			isa = XCConfigurationList;
@@ -558,6 +603,7 @@
 				8236A6811F5C1130006F8F26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8236A6821F5C1130006F8F26 /* Build configuration list for PBXNativeTarget "NewVideoTestUITests" */ = {
 			isa = XCConfigurationList;
@@ -566,6 +612,7 @@
 				8236A6841F5C1130006F8F26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
