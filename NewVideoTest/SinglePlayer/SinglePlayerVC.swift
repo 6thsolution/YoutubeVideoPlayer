@@ -18,7 +18,7 @@ class SinglePlayerVC: UIPageViewController {
     var videoList: [String]!
     
     var playerBuffer = [String: PlayerInfo]()
-    let bufferSize = 2
+    let bufferSize = 4
     
     required init?(coder: NSCoder) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -82,6 +82,7 @@ extension SinglePlayerVC {
         player.playerVars["controls"] = 0 as AnyObject
         player.playerVars["playsinline"] = 1 as AnyObject
         player.playerVars["showinfo"] = 0 as AnyObject
+        player.playerVars["rel"] = 0 as AnyObject
         player.loadVideoID(videoId)
         
         return getViewControllerAtIndex(videoId: videoId, player: player)
