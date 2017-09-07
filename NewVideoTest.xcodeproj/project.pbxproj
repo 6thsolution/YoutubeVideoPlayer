@@ -261,7 +261,7 @@
 				TargetAttributes = {
 					8236A6531F5C1130006F8F26 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = Y9CYE9NBLT;
+						DevelopmentTeam = 4759EGMM6V;
 						ProvisioningStyle = Automatic;
 					};
 					8236A6671F5C1130006F8F26 = {
@@ -495,7 +495,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Y9CYE9NBLT;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4759EGMM6V;
 				INFOPLIST_FILE = NewVideoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.NewVideoTest;
@@ -508,7 +509,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Y9CYE9NBLT;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4759EGMM6V;
 				INFOPLIST_FILE = NewVideoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.NewVideoTest;
