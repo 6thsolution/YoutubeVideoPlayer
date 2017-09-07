@@ -10,9 +10,7 @@ import UIKit
 
 class SinglePlayerView: UIViewController {
 
-    var index: Int!
     var videoId: String!
-//    var player: SinglePlayerWebView!
     var player: YouTubePlayerView!
     
     var playTimer: Timer? = nil
@@ -26,7 +24,7 @@ class SinglePlayerView: UIViewController {
         
         player.delegate = self
         
-        print(index)
+        print(videoId)
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,16 +52,20 @@ class SinglePlayerView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
 //        player.play()
+        print("viewDidAppear")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
 //        player.pause()
+        print("viewDidDisappear")
     }
     
 }
 
 extension SinglePlayerView: YouTubePlayerDelegate {
     func playerReady(_ videoPlayer: YouTubePlayerView) {
+        print("playerReady")
+        
         videoPlayer.play()
     }
     
