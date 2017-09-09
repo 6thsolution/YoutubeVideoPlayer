@@ -321,7 +321,6 @@ open class YouTubePlayerView: UIView, UIWebViewDelegate {
                 
             case .Ready:
                 delegate?.playerReady(self)
-                
                 break
                 
             case .StateChange:
@@ -352,8 +351,6 @@ open class YouTubePlayerView: UIView, UIWebViewDelegate {
         
         // Check if ytplayer event and, if so, pass to handleJSEvent
         if let url = url, url.scheme == "ytplayer" { handleJSEvent(url) }
-        
-        print(url)
         
         return true
     }

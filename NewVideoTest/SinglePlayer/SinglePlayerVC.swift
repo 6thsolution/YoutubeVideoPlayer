@@ -18,7 +18,8 @@ class SinglePlayerVC: UIPageViewController {
     var videoList: [String]!
     
     var playerBuffer = [String: PlayerInfo]()
-    let bufferSize = 4
+    let bufferSize = 5
+    let videoAhead = 2
     
     static let playDuration = 6 * 1000 // second * milli
     
@@ -33,14 +34,14 @@ class SinglePlayerVC: UIPageViewController {
                      "AmV8bp1h-3I", "SJj0qYNN1lU", "iHlczxoNBrA", "sjzzdkUvKhk",
                      "axVR2-2-G4Y", "WPRKKbDMWIU", "vMI8m2rlaSM"]
         
-        fillBuffer()
+        //fillBuffer()
         
         self.delegate = self
         self.dataSource = self
         
-        let firstController = playerBuffer[videoList[0]]?.controller
+        let firstController = getPlayControllerWith(videoId: videoList[0])
         
-        self.setViewControllers([firstController!],
+        self.setViewControllers([firstController],
                                 direction: .forward,
                                 animated: false,
                                 completion: nil)
@@ -55,6 +56,8 @@ class SinglePlayerVC: UIPageViewController {
         let vc = SinglePlayerView(nibName: "SinglePlayerView", bundle: nil)
         vc.player = player
         vc.videoId = videoId
+        vc.player.delegate = vc
+        vc.player.loadVideoID(videoId)
         
         return vc
     }
@@ -88,7 +91,7 @@ extension SinglePlayerVC {
         player.playerVars["start"] = 0 as AnyObject
         player.playerVars["end"] = SinglePlayerVC.playDuration as AnyObject
         
-        player.loadVideoID(videoId)
+        //player.loadVideoID(videoId)
         
         return getViewControllerAtIndex(videoId: videoId, player: player)
     }
@@ -112,6 +115,35 @@ extension SinglePlayerVC {
         }
         
         playerBuffer[videoId] = playerInfo
+        
+        let videoIndex = videoList.index(of: videoId)
+        refillBuffer(videoIndex: videoIndex!)
+    }
+    
+    func refillBuffer(videoIndex: Int) {
+        for index in 1...videoAhead {
+            let nextIndex = videoIndex + index
+            
+            // if there is no more video after this break
+            if nextIndex >= videoList.count {
+                break
+            }
+            
+            // if player exist in buffer break
+            if playerBuffer[videoList[nextIndex]] != nil {
+                break
+            }
+            
+            let info = PlayerInfo(lastAccess: getCurrentTime(),
+                                  controller: createController(videoId: videoList[nextIndex]))
+            
+            if playerBuffer.count >= bufferSize {
+                removeLastUsedControllerFromBuffer()
+            }
+            
+            print("add video \(nextIndex) to buffer")
+            playerBuffer[videoList[nextIndex]] = info
+        }
     }
     
     func removeLastUsedControllerFromBuffer() {

@@ -13,8 +13,6 @@ class SinglePlayerView: UIViewController {
     var videoId: String!
     var player: YouTubePlayerView!
     
-    var playTimer: Timer? = nil
-    
     var isViewVisible = false
     
     override func viewDidLoad() {
@@ -22,7 +20,7 @@ class SinglePlayerView: UIViewController {
 
         self.view.addSubview(player)
         
-        player.delegate = self
+        //player.delegate = self
         
         print(videoId)
     }
@@ -45,32 +43,29 @@ class SinglePlayerView: UIViewController {
         isViewVisible = false
         
         player.pause()
-        if playTimer != nil {
-            playTimer?.invalidate()
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
 //        player.play()
-        print("viewDidAppear")
+        //print("viewDidAppear")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
 //        player.pause()
-        print("viewDidDisappear")
+        //print("viewDidDisappear")
     }
     
 }
 
 extension SinglePlayerView: YouTubePlayerDelegate {
     func playerReady(_ videoPlayer: YouTubePlayerView) {
-        print("playerReady")
+        print("playerReady for id \(videoId!)")
         
         videoPlayer.play()
     }
     
     func playerStateChanged(_ videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
-        print(playerState)
+        print("\(playerState) for id: \(videoId!)")
         if playerState == YouTubePlayerState.Playing {
             if !isViewVisible {
                 videoPlayer.pause()
