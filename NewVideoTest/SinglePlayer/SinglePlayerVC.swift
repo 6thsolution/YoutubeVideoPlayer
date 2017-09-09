@@ -106,6 +106,10 @@ extension SinglePlayerVC {
             addPlayerToBuffer(videoId, playerInfo!)
         }
         
+        // add next videos to buffer
+        let videoIndex = videoList.index(of: videoId)
+        refillBuffer(videoIndex: videoIndex!)
+        
         return (playerInfo?.controller)!
     }
     
@@ -115,9 +119,6 @@ extension SinglePlayerVC {
         }
         
         playerBuffer[videoId] = playerInfo
-        
-        let videoIndex = videoList.index(of: videoId)
-        refillBuffer(videoIndex: videoIndex!)
     }
     
     func refillBuffer(videoIndex: Int) {
