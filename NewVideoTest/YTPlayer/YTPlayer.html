@@ -88,6 +88,16 @@
         function onPlayerError(event) {
             window.location.href = 'ytplayer://onError?data=' + event.data;
         }
+        
+        function startLoop(duration) {
+            setTimeout(restartVideo, duration)
+        }
+        
+        function restartVideo() {
+            player.pauseVideo();
+            player.seekTo(0);
+            player.playVideo();
+        }
         </script>
     </body>
     

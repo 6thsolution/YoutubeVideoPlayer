@@ -218,6 +218,10 @@ open class YouTubePlayerView: UIView, UIWebViewDelegate {
         return webView.stringByEvaluatingJavaScript(from: fullCommand)
     }
     
+    open func scheduledTimer(duration: Int) {
+        webView.stringByEvaluatingJavaScript(from: "startLoop(\(duration));")
+    }
+    
     
     // MARK: Player setup
     

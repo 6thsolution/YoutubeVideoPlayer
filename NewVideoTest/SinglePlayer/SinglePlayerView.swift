@@ -78,11 +78,7 @@ extension SinglePlayerView: YouTubePlayerDelegate {
                 return
             }
             
-            playTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (timer) in
-                //videoPlayer.seekTo(0, seekAhead: false)
-                //self.player.play()
-                print("seek to 0")
-            })
+            videoPlayer.scheduledTimer(duration: SinglePlayerVC.playDuration)
         }
     }
 
