@@ -50,6 +50,8 @@ class ServerPlayerVC: UIPageViewController {
 
     func getPlayControllerWith(videoId: String) -> ServerPlayerView {
         if controllerList[videoId] != nil {
+            bufferNextItems(currentId: videoId)
+            
             return controllerList[videoId]!
         }
         
@@ -85,13 +87,13 @@ class ServerPlayerVC: UIPageViewController {
             let videoIndex = videoList.index(of: currentId)
             let nextIndex = videoIndex! + index
             if nextIndex >= videoList.count {
-                return
+                continue
             }
             
             let nextId = videoList[nextIndex]
             
             if controllerList[nextId] != nil {
-                return
+                continue
             }
             
             controllerList[nextId] = createPlayer(videoId: nextId)
