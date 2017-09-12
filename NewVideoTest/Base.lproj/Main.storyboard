@@ -109,12 +109,26 @@
                     <view key="view" contentMode="scaleToFill" id="5iH-7o-c4i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-Lr-5GL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PfD-Lr-5GL" firstAttribute="leading" secondItem="5iH-7o-c4i" secondAttribute="leading" id="MtJ-KD-hQa"/>
+                            <constraint firstItem="PfD-Lr-5GL" firstAttribute="top" secondItem="5iH-7o-c4i" secondAttribute="top" id="Sce-vG-fus"/>
+                            <constraint firstItem="qfY-a5-hpE" firstAttribute="top" secondItem="PfD-Lr-5GL" secondAttribute="bottom" id="W2S-ku-u7m"/>
+                            <constraint firstAttribute="trailing" secondItem="PfD-Lr-5GL" secondAttribute="trailing" id="ftN-hG-bET"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="preview" destination="PfD-Lr-5GL" id="Uua-1h-ZZK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xwM-R7-qVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="973" y="1792"/>
+            <point key="canvasLocation" x="972" y="1791.4542728635683"/>
         </scene>
         <!--PlayerVC-->
         <scene sceneID="60a-qK-jWt">

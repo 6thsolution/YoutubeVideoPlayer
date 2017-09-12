@@ -10,10 +10,12 @@ import UIKit
 import AVFoundation
 
 class ServerPlayerView: UIViewController {
+    @IBOutlet weak var preview: UIImageView!
 
     var looper: PlayerLooper?
     var videoId: String!
     var visible = false
+    var hasPreview = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,7 @@ class ServerPlayerView: UIViewController {
         visible = false
         looper?.visible = false
         
-        looper?.stop()
+        looper?.pause()
     }
 }
 
@@ -48,10 +50,21 @@ extension ServerPlayerView: PlayerLooperDelegate {
             print("ready: ", videoId)
 
             if !visible {
-                
+                //prepare()
             }
         } else if status == AVPlayerLooperStatus.unknown {
             print("unknown: ", videoId)
         }
+    }
+    
+    func thumbnailIsReady(image: UIImage) {
+        print("thumbnailIsReady", videoId)
+        preview.image = image
+        preview.isHidden = false
+    }
+    
+    func playbackStarted() {
+        print("playbackStarted", videoId)
+        preview.isHidden = true
     }
 }

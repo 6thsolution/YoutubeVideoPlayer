@@ -11,6 +11,8 @@ import AVFoundation
 
 protocol PlayerLooperDelegate: class {
     func onPlayerStatusChanged(status: AVPlayerLooperStatus)
+    func thumbnailIsReady(image: UIImage)
+    func playbackStarted()
 }
 
 class PlayerLooper: NSObject {
@@ -63,18 +65,34 @@ class PlayerLooper: NSObject {
         playerItem?.asset.loadValuesAsynchronously(forKeys: ["playable", "tracks", "duration"], completionHandler: {()->Void in
             self.itemReady = true
             
+            self.sendThumbnail()
+            
             if self.visible == true {
                 self.start(layer: self.parentLayer)
             }
-            
         })
-
+    }
+    
+    func sendThumbnail() {
+        do {
+            let imageGenerator = AVAssetImageGenerator(asset: (playerItem?.asset)!)
+            let time = CMTimeMake(1, 1)
+            let imageRef = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage(cgImage: imageRef)
+            
+            DispatchQueue.main.async {
+                self.delegate?.thumbnailIsReady(image: thumbnail)
+            }
+        } catch _ {
+            
+        }
+        
     }
 
     func start(layer: CALayer) {
         parentLayer = layer
         
-        if !itemReady || !visible {
+        if !itemReady {
             return
         }
                 
@@ -95,6 +113,8 @@ class PlayerLooper: NSObject {
         self.playerLooper = AVPlayerLooper(player: player, templateItem: playerItem!)
         self.startObserving()
         player.play()
+        
+        delegate?.playbackStarted()
     }
     
     func showThumbnail(layer: CALayer) {
