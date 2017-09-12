@@ -26,7 +26,7 @@ class LooperViewController: UIViewController {
                 
                 print("url", streamUrl)
                 
-                let lopper = QueuePlayerLooper(videoURL: streamUrl, loopCount: -1, timeRange: self.createCMTimeRange(start: 0, end: 10))
+                let lopper = QueuePlayerLooper2(videoURL: streamUrl, loopCount: -1, timeRange: self.createCMTimeRange(start: 0, end: 10))
                 
                 lopper.start(in: self.view.layer)
                 

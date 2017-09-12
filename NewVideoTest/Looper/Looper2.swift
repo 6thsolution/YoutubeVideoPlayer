@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-protocol Looper {
+protocol Looper2 {
     init(videoURL: URL, loopCount: Int, timeRange:CMTimeRange)
     
     func start(in layer: CALayer)

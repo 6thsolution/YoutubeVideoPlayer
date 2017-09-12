@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-class QueuePlayerLooper : NSObject, Looper {
+class QueuePlayerLooper2 : NSObject, Looper2 {
     // MARK: Types
     
     private struct ObserverContexts {

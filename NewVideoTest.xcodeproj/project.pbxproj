@@ -25,9 +25,14 @@
 		828F82E01F64FDDE003DB8E5 /* XCDPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82DE1F64FDDE003DB8E5 /* XCDPlayerView.swift */; };
 		828F82E11F64FDDE003DB8E5 /* XCDPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828F82DF1F64FDDE003DB8E5 /* XCDPlayerView.xib */; };
 		828F82EA1F665006003DB8E5 /* XCDAVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82E91F665006003DB8E5 /* XCDAVPlayerVC.swift */; };
-		828F82EF1F66AFB0003DB8E5 /* Looper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82EE1F66AFB0003DB8E5 /* Looper.swift */; };
+		828F82EF1F66AFB0003DB8E5 /* Looper2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82EE1F66AFB0003DB8E5 /* Looper2.swift */; };
 		828F82F31F66B1DA003DB8E5 /* LooperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82F21F66B1DA003DB8E5 /* LooperViewController.swift */; };
-		828F82F51F66C4D8003DB8E5 /* QueuePlayerLooper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82F41F66C4D8003DB8E5 /* QueuePlayerLooper.swift */; };
+		828F82F51F66C4D8003DB8E5 /* QueuePlayerLooper2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82F41F66C4D8003DB8E5 /* QueuePlayerLooper2.swift */; };
+		828F82FA1F67A102003DB8E5 /* Looper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82F71F67A102003DB8E5 /* Looper.swift */; };
+		828F82FB1F67A102003DB8E5 /* PlayerLooper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82F81F67A102003DB8E5 /* PlayerLooper.swift */; };
+		828F82FC1F67A102003DB8E5 /* QueuePlayerLooper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82F91F67A102003DB8E5 /* QueuePlayerLooper.swift */; };
+		828F82FE1F67A207003DB8E5 /* ServerPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F82FD1F67A207003DB8E5 /* ServerPlayerVC.swift */; };
+		828F83041F67A916003DB8E5 /* ServerPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F83031F67A916003DB8E5 /* ServerPlayerView.swift */; };
 		82A980931F5E652200DC0D21 /* SinglePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A980921F5E652200DC0D21 /* SinglePlayerVC.swift */; };
 		82A980961F5E653700DC0D21 /* SinglePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A980941F5E653700DC0D21 /* SinglePlayerView.swift */; };
 		82A980971F5E653700DC0D21 /* SinglePlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82A980951F5E653700DC0D21 /* SinglePlayerView.xib */; };
@@ -84,9 +89,14 @@
 		828F82DE1F64FDDE003DB8E5 /* XCDPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDPlayerView.swift; sourceTree = "<group>"; };
 		828F82DF1F64FDDE003DB8E5 /* XCDPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XCDPlayerView.xib; sourceTree = "<group>"; };
 		828F82E91F665006003DB8E5 /* XCDAVPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDAVPlayerVC.swift; sourceTree = "<group>"; };
-		828F82EE1F66AFB0003DB8E5 /* Looper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Looper.swift; sourceTree = "<group>"; };
+		828F82EE1F66AFB0003DB8E5 /* Looper2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Looper2.swift; sourceTree = "<group>"; };
 		828F82F21F66B1DA003DB8E5 /* LooperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LooperViewController.swift; sourceTree = "<group>"; };
-		828F82F41F66C4D8003DB8E5 /* QueuePlayerLooper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueuePlayerLooper.swift; sourceTree = "<group>"; };
+		828F82F41F66C4D8003DB8E5 /* QueuePlayerLooper2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueuePlayerLooper2.swift; sourceTree = "<group>"; };
+		828F82F71F67A102003DB8E5 /* Looper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Looper.swift; sourceTree = "<group>"; };
+		828F82F81F67A102003DB8E5 /* PlayerLooper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerLooper.swift; sourceTree = "<group>"; };
+		828F82F91F67A102003DB8E5 /* QueuePlayerLooper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueuePlayerLooper.swift; sourceTree = "<group>"; };
+		828F82FD1F67A207003DB8E5 /* ServerPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerPlayerVC.swift; sourceTree = "<group>"; };
+		828F83031F67A916003DB8E5 /* ServerPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerPlayerView.swift; sourceTree = "<group>"; };
 		82A980921F5E652200DC0D21 /* SinglePlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerVC.swift; sourceTree = "<group>"; };
 		82A980941F5E653700DC0D21 /* SinglePlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglePlayerView.swift; sourceTree = "<group>"; };
 		82A980951F5E653700DC0D21 /* SinglePlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinglePlayerView.xib; sourceTree = "<group>"; };
@@ -162,6 +172,7 @@
 		8236A6561F5C1130006F8F26 /* NewVideoTest */ = {
 			isa = PBXGroup;
 			children = (
+				828F82F61F67A0D8003DB8E5 /* ServerPlayer */,
 				828F82ED1F66AF90003DB8E5 /* Looper */,
 				828F82E21F663DFB003DB8E5 /* XCD_AVPLAYER */,
 				828F82DB1F64FD33003DB8E5 /* XCD */,
@@ -237,11 +248,23 @@
 		828F82ED1F66AF90003DB8E5 /* Looper */ = {
 			isa = PBXGroup;
 			children = (
-				828F82EE1F66AFB0003DB8E5 /* Looper.swift */,
+				828F82EE1F66AFB0003DB8E5 /* Looper2.swift */,
 				828F82F21F66B1DA003DB8E5 /* LooperViewController.swift */,
-				828F82F41F66C4D8003DB8E5 /* QueuePlayerLooper.swift */,
+				828F82F41F66C4D8003DB8E5 /* QueuePlayerLooper2.swift */,
 			);
 			path = Looper;
+			sourceTree = "<group>";
+		};
+		828F82F61F67A0D8003DB8E5 /* ServerPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				828F82F71F67A102003DB8E5 /* Looper.swift */,
+				828F82F81F67A102003DB8E5 /* PlayerLooper.swift */,
+				828F82F91F67A102003DB8E5 /* QueuePlayerLooper.swift */,
+				828F82FD1F67A207003DB8E5 /* ServerPlayerVC.swift */,
+				828F83031F67A916003DB8E5 /* ServerPlayerView.swift */,
+			);
+			path = ServerPlayer;
 			sourceTree = "<group>";
 		};
 		82A980911F5E64E900DC0D21 /* SinglePlayer */ = {
@@ -573,16 +596,21 @@
 				828F82DD1F64FDC4003DB8E5 /* XCDPlayerVC.swift in Sources */,
 				8236A68C1F5C2939006F8F26 /* PagerVC.swift in Sources */,
 				8236A65A1F5C1130006F8F26 /* ViewController.swift in Sources */,
-				828F82EF1F66AFB0003DB8E5 /* Looper.swift in Sources */,
+				828F82EF1F66AFB0003DB8E5 /* Looper2.swift in Sources */,
+				828F82FB1F67A102003DB8E5 /* PlayerLooper.swift in Sources */,
 				8236A6871F5C1389006F8F26 /* Player.swift in Sources */,
 				82A980961F5E653700DC0D21 /* SinglePlayerView.swift in Sources */,
-				828F82F51F66C4D8003DB8E5 /* QueuePlayerLooper.swift in Sources */,
+				828F82FE1F67A207003DB8E5 /* ServerPlayerVC.swift in Sources */,
+				828F82FA1F67A102003DB8E5 /* Looper.swift in Sources */,
+				828F82F51F66C4D8003DB8E5 /* QueuePlayerLooper2.swift in Sources */,
+				828F83041F67A916003DB8E5 /* ServerPlayerView.swift in Sources */,
 				82A980991F5E655400DC0D21 /* SinglePlayerWebView.swift in Sources */,
 				82A980931F5E652200DC0D21 /* SinglePlayerVC.swift in Sources */,
 				828F82E01F64FDDE003DB8E5 /* XCDPlayerView.swift in Sources */,
 				8236A6911F5C2F6D006F8F26 /* PlayerView.swift in Sources */,
 				828F82EA1F665006003DB8E5 /* XCDAVPlayerVC.swift in Sources */,
 				8236A6581F5C1130006F8F26 /* AppDelegate.swift in Sources */,
+				828F82FC1F67A102003DB8E5 /* QueuePlayerLooper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
