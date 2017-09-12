@@ -21,7 +21,7 @@ class SinglePlayerVC: UIPageViewController {
     let bufferSize = 5
     let videoAhead = 2
     
-    static let playDuration = 6 * 1000 // second * milli
+    static let playDuration = 6 // second * milli
     
     required init?(coder: NSCoder) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -30,10 +30,9 @@ class SinglePlayerVC: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        videoList = ["OmQEsGcwVZY", "186oNNE6LFM", "DEySgiwoMpA", "SdKqR_CBRBk",
-                     "AmV8bp1h-3I", "SJj0qYNN1lU", "iHlczxoNBrA", "sjzzdkUvKhk",
-                     "axVR2-2-G4Y", "WPRKKbDMWIU", "vMI8m2rlaSM"]
-        
+        videoList = ["186oNNE6LFM","bxajnypzxh0", "_gEjmghHkD8", "Fq94WTCBQR0", "dl_MCMMM_yg",
+                     "IhX0fOUYd8Q", "fLqV5g8D2WA", "ZS-Wh5qN2E8", "1Hr3-ee5VV4",
+                     "gx-9S5T_U5g"]
         //fillBuffer()
         
         self.delegate = self

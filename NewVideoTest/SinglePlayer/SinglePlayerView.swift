@@ -73,7 +73,10 @@ extension SinglePlayerView: YouTubePlayerDelegate {
                 return
             }
             
-            videoPlayer.scheduledTimer(duration: SinglePlayerVC.playDuration)
+            //videoPlayer.scheduledTimer(duration: SinglePlayerVC.playDuration)
+        } else if (playerState == YouTubePlayerState.Ended && isViewVisible) {
+            videoPlayer.seekTo(0, seekAhead: true)
+            videoPlayer.play()
         }
     }
 

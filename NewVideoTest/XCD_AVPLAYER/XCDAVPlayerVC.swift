@@ -22,9 +22,9 @@ class XCDAVPlayerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let videoList = ["186oNNE6LFM","bxajnypzxh0"]//, "_gEjmghHkD8", "Fq94WTCBQR0", "dl_MCMMM_yg",
-//                         "IhX0fOUYd8Q", "fLqV5g8D2WA", "ZS-Wh5qN2E8", "1Hr3-ee5VV4",
-//                         "gx-9S5T_U5g"]
+        let videoList = ["186oNNE6LFM","bxajnypzxh0", "_gEjmghHkD8", "Fq94WTCBQR0", "dl_MCMMM_yg",
+                         "IhX0fOUYd8Q", "fLqV5g8D2WA", "ZS-Wh5qN2E8", "1Hr3-ee5VV4",
+                         "gx-9S5T_U5g"]
         
         var urlCount = 0
         
@@ -40,8 +40,10 @@ class XCDAVPlayerVC: UIViewController {
                                     video?.streamURLs[hd]) {
                     urlCount += 1
                     
+                    let item = AVPlayerItem(url: streamUrl)
+                    item.preferredForwardBufferDuration = CMTimeGetSeconds(CMTime(value: 6, timescale: 1))
                     self.arrOfAVPItems.append(AVPlayerItem(url: streamUrl))
-                    print("new url", urlCount, videoList.count)
+                    print("new url", streamUrl)
                     if urlCount == videoList.count {
                         self.initPlayerController()
                         return
@@ -93,8 +95,13 @@ extension XCDAVPlayerVC {
 
 extension XCDAVPlayerVC {
     func playVideos() {
+        currentAVPlyrItem?.removeObserver(self, forKeyPath: "status")
+        
         if currentVideoNO > 0 {
             currentAVPlyrItem = arrOfAVPItems[currentVideoNO]
+            
+            currentAVPlyrItem?.addObserver(self, forKeyPath: "status", options: [NSKeyValueObservingOptions.initial , NSKeyValueObservingOptions.new], context: nil)
+            
             avPlyrViewController?.player?.pause()
             avPlyrViewController?.player = nil
             
@@ -120,6 +127,10 @@ extension XCDAVPlayerVC {
         }
         
         playVideos()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        print(currentAVPlyrItem?.status)
     }
 }
 
