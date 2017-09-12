@@ -11,7 +11,7 @@ import AVFoundation
 
 protocol PlayerLooperDelegate: class {
     func onPlayerStatusChanged(status: AVPlayerLooperStatus)
-    func thumbnailIsReady(image: UIImage)
+    func thumbnailIsReady(image: UIImage?)
     func playbackStarted()
 }
 

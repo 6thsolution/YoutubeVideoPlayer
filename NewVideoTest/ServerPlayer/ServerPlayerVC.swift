@@ -11,7 +11,7 @@ import UIKit
 class ServerPlayerVC: UIPageViewController {
     var videoList:[String]!
     let videoAhead = 2
-    var lopperList = [String: PlayerLooper]()
+    var controllerList = [String: ServerPlayerView]()
     
     required init?(coder: NSCoder) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -48,33 +48,36 @@ class ServerPlayerVC: UIPageViewController {
         
     }
 
-    func getPlayControllerWith(videoId: String) -> UIViewController {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "server_player_view") as! ServerPlayerView
+    func getPlayControllerWith(videoId: String) -> ServerPlayerView {
+        if controllerList[videoId] != nil {
+            return controllerList[videoId]!
+        }
         
-        vc.videoId = videoId
-        vc.looper = getLopper(videoId: videoId)
-        vc.prepare()
+        let vc = createPlayer(videoId: videoId)
+        
+        controllerList[videoId] = vc
+        
+        // buffer next looper
+        bufferNextItems(currentId: videoId)
+        
         //vc.looper = QueuePlayerLooper(videoURL: URL(string: videoId)!, loopCount: -1)
         //vc.looper = PlayerLooper(videoURL: URL(string: videoId)!, loopCount: -1)
         
         return vc
     }
     
-    func getLopper(videoId: String) -> PlayerLooper {
-        if lopperList[videoId] == nil {
-            lopperList[videoId] = createLooper(videoId: videoId)
-        }
-        
-        // buffer next looper
-        bufferNextItems(currentId: videoId)
-        
-        
-        
-        return lopperList[videoId]!
-    }
-    
     func createLooper(videoId: String) -> PlayerLooper {
         return PlayerLooper(videoURL: URL(string: videoId)!, loopCount: -1)
+    }
+    
+    func createPlayer(videoId: String) -> ServerPlayerView {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "server_player_view") as! ServerPlayerView
+        
+        vc.videoId = videoId
+        vc.looper = createLooper(videoId: videoId)
+        vc.prepare()
+        
+        return vc
     }
     
     func bufferNextItems(currentId: String) {
@@ -85,9 +88,13 @@ class ServerPlayerVC: UIPageViewController {
                 return
             }
             
-            print("buffering", nextIndex)
             let nextId = videoList[nextIndex]
-            lopperList[nextId] = createLooper(videoId: nextId)
+            
+            if controllerList[nextId] != nil {
+                return
+            }
+            
+            controllerList[nextId] = createPlayer(videoId: nextId)
         }
     }
 }

@@ -110,9 +110,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-Lr-5GL">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-Lr-5GL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="t68-Xm-2lL">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" red="1" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -120,10 +124,13 @@
                             <constraint firstItem="PfD-Lr-5GL" firstAttribute="top" secondItem="5iH-7o-c4i" secondAttribute="top" id="Sce-vG-fus"/>
                             <constraint firstItem="qfY-a5-hpE" firstAttribute="top" secondItem="PfD-Lr-5GL" secondAttribute="bottom" id="W2S-ku-u7m"/>
                             <constraint firstAttribute="trailing" secondItem="PfD-Lr-5GL" secondAttribute="trailing" id="ftN-hG-bET"/>
+                            <constraint firstItem="t68-Xm-2lL" firstAttribute="centerY" secondItem="5iH-7o-c4i" secondAttribute="centerY" id="uEm-m6-l6m"/>
+                            <constraint firstItem="t68-Xm-2lL" firstAttribute="centerX" secondItem="5iH-7o-c4i" secondAttribute="centerX" id="x59-EO-nKW"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="preview" destination="PfD-Lr-5GL" id="Uua-1h-ZZK"/>
+                        <outlet property="progress" destination="t68-Xm-2lL" id="hww-oG-aus"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xwM-R7-qVC" userLabel="First Responder" sceneMemberID="firstResponder"/>

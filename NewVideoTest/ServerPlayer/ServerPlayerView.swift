@@ -10,12 +10,14 @@ import UIKit
 import AVFoundation
 
 class ServerPlayerView: UIViewController {
+    @IBOutlet weak var progress: UIActivityIndicatorView!
     @IBOutlet weak var preview: UIImageView!
 
     var looper: PlayerLooper?
     var videoId: String!
     var visible = false
     var hasPreview = false
+    var thumbnail: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +38,19 @@ class ServerPlayerView: UIViewController {
         visible = false
         looper?.visible = false
         
-        looper?.pause()
+        looper?.stop()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        showPreview()
+    }
+    
+    func showPreview() {
+        if thumbnail != nil && preview != nil {
+            preview.image = thumbnail
+            preview.isHidden = false
+            progress.isHidden = true
+        }
     }
 }
 
@@ -57,14 +71,16 @@ extension ServerPlayerView: PlayerLooperDelegate {
         }
     }
     
-    func thumbnailIsReady(image: UIImage) {
+    func thumbnailIsReady(image: UIImage?) {
         print("thumbnailIsReady", videoId)
-        preview.image = image
-        preview.isHidden = false
+        thumbnail = image
+        // if view outlets is loaded
+        showPreview()
     }
     
     func playbackStarted() {
         print("playbackStarted", videoId)
+        progress.isHidden = true
         preview.isHidden = true
     }
 }
