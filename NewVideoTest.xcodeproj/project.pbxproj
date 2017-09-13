@@ -40,6 +40,8 @@
 		82A9809B1F5E694100DC0D21 /* SingleJSPlayer.html in Resources */ = {isa = PBXBuildFile; fileRef = 82A9809A1F5E694100DC0D21 /* SingleJSPlayer.html */; };
 		82A9809F1F5EBC7700DC0D21 /* YouTubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9809D1F5EBC7700DC0D21 /* YouTubePlayer.swift */; };
 		82A980A01F5EBC7700DC0D21 /* YTPlayer.html in Resources */ = {isa = PBXBuildFile; fileRef = 82A9809E1F5EBC7700DC0D21 /* YTPlayer.html */; };
+		82E603D01F68EAFC00CFE289 /* RangeLooper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E603CF1F68EAFC00CFE289 /* RangeLooper.swift */; };
+		82E603D21F68EFA700CFE289 /* RangePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E603D11F68EFA700CFE289 /* RangePlayerVC.swift */; };
 		BF2068A3A0FD5A067E67BDEB /* Pods_NewVideoTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DD2CA04647CF84E8F322DB /* Pods_NewVideoTestTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +106,8 @@
 		82A9809A1F5E694100DC0D21 /* SingleJSPlayer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = SingleJSPlayer.html; sourceTree = "<group>"; };
 		82A9809D1F5EBC7700DC0D21 /* YouTubePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePlayer.swift; sourceTree = "<group>"; };
 		82A9809E1F5EBC7700DC0D21 /* YTPlayer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = YTPlayer.html; sourceTree = "<group>"; };
+		82E603CF1F68EAFC00CFE289 /* RangeLooper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeLooper.swift; sourceTree = "<group>"; };
+		82E603D11F68EFA700CFE289 /* RangePlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangePlayerVC.swift; sourceTree = "<group>"; };
 		BFF5DF3B085BF21808929750 /* Pods-NewVideoTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewVideoTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewVideoTest/Pods-NewVideoTest.debug.xcconfig"; sourceTree = "<group>"; };
 		D4ACE37BBAB9C74C30FDE07A /* Pods_NewVideoTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewVideoTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3DD2CA04647CF84E8F322DB /* Pods_NewVideoTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewVideoTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +176,7 @@
 		8236A6561F5C1130006F8F26 /* NewVideoTest */ = {
 			isa = PBXGroup;
 			children = (
+				82E603CE1F68EADE00CFE289 /* RangeLooper */,
 				828F82F61F67A0D8003DB8E5 /* ServerPlayer */,
 				828F82ED1F66AF90003DB8E5 /* Looper */,
 				828F82E21F663DFB003DB8E5 /* XCD_AVPLAYER */,
@@ -286,6 +291,15 @@
 				82A9809E1F5EBC7700DC0D21 /* YTPlayer.html */,
 			);
 			path = YTPlayer;
+			sourceTree = "<group>";
+		};
+		82E603CE1F68EADE00CFE289 /* RangeLooper */ = {
+			isa = PBXGroup;
+			children = (
+				82E603CF1F68EAFC00CFE289 /* RangeLooper.swift */,
+				82E603D11F68EFA700CFE289 /* RangePlayerVC.swift */,
+			);
+			path = RangeLooper;
 			sourceTree = "<group>";
 		};
 		C75F916E0B4BE545EA945A92 /* Pods */ = {
@@ -604,9 +618,11 @@
 				828F82FA1F67A102003DB8E5 /* Looper.swift in Sources */,
 				828F82F51F66C4D8003DB8E5 /* QueuePlayerLooper2.swift in Sources */,
 				828F83041F67A916003DB8E5 /* ServerPlayerView.swift in Sources */,
+				82E603D21F68EFA700CFE289 /* RangePlayerVC.swift in Sources */,
 				82A980991F5E655400DC0D21 /* SinglePlayerWebView.swift in Sources */,
 				82A980931F5E652200DC0D21 /* SinglePlayerVC.swift in Sources */,
 				828F82E01F64FDDE003DB8E5 /* XCDPlayerView.swift in Sources */,
+				82E603D01F68EAFC00CFE289 /* RangeLooper.swift in Sources */,
 				8236A6911F5C2F6D006F8F26 /* PlayerView.swift in Sources */,
 				828F82EA1F665006003DB8E5 /* XCDAVPlayerVC.swift in Sources */,
 				8236A6581F5C1130006F8F26 /* AppDelegate.swift in Sources */,
@@ -767,7 +783,7 @@
 				DEVELOPMENT_TEAM = 4759EGMM6V;
 				INFOPLIST_FILE = NewVideoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.NewVideoTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.YoutubeApi3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -782,7 +798,7 @@
 				DEVELOPMENT_TEAM = 4759EGMM6V;
 				INFOPLIST_FILE = NewVideoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.NewVideoTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.YoutubeApi3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

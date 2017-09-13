@@ -18,10 +18,10 @@ class SinglePlayerVC: UIPageViewController {
     var videoList: [String]!
     
     var playerBuffer = [String: PlayerInfo]()
-    let bufferSize = 5
-    let videoAhead = 2
+    let bufferSize = 15
+    let videoAhead = 1
     
-    static let playDuration = 6 // second * milli
+    static let playDuration = 20 // second * milli
     
     required init?(coder: NSCoder) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
