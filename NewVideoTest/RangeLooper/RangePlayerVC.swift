@@ -9,38 +9,150 @@
 import UIKit
 import XCDYouTubeKit
 
-class RangePlayerVC: UIViewController {
+class RangePlayerVC: UIPageViewController {
+    @IBOutlet weak var status: UILabel!
+    
     let small = NSNumber(value: XCDYouTubeVideoQuality.small240.rawValue)
     let medium = NSNumber(value: XCDYouTubeVideoQuality.medium360.rawValue)
     let hd = NSNumber(value: XCDYouTubeVideoQuality.HD720.rawValue)
     
-    var looper: RangeLooper?
+    var videoUrls = [URL]()
+    
+    let videoAhead = 2
+    var controllerList = [URL: RangePlayerView]()
+    
+    required init?(coder: NSCoder) {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
+        self.dataSource = self
 
-        XCDYouTubeClient.default().getVideoWithIdentifier("186oNNE6LFM") { (video, error) in
-            if let streamUrl = (video?.streamURLs[self.small] ??
-                video?.streamURLs[self.medium] ??
-                video?.streamURLs[self.hd]){
-                print("streamUrl", streamUrl.absoluteString)
-                DispatchQueue.main.async {
-                    self.looper = RangeLooper(videoURL: streamUrl, loopCount: -1)
-                    self.looper?.start(in: self.view.layer)
+        let videoList = ["186oNNE6LFM","bxajnypzxh0", "_gEjmghHkD8", "Fq94WTCBQR0", "dl_MCMMM_yg",
+                         "IhX0fOUYd8Q", "fLqV5g8D2WA", "ZS-Wh5qN2E8", "1Hr3-ee5VV4",
+                         "gx-9S5T_U5g"]
+        
+        
+        for videoId in videoList {
+                        
+            XCDYouTubeClient.default().getVideoWithIdentifier(videoId, completionHandler: { (video, error) in
+                if let streamUrl = (video?.streamURLs[self.small] ??
+                    video?.streamURLs[self.medium] ??
+                    video?.streamURLs[self.hd]) {
+                    
+                    print("url received: ", videoId)
+                    self.videoUrls.append(streamUrl)
+                    
+                    if self.videoUrls.count == videoList.count {
+                        DispatchQueue.main.async {
+                            self.startShowingVideos()
+                        }
+                    }
                 }
-                
-            }
+            })
         }
-//        looper = RangeLooper(videoURL: URL(string: "https://r3---sn-ab5l6n67.googlevideo.com/videoplayback?ipbits=0&signature=9B02D0998AD1B03F3F154A9FB6C97EF82F9E888B.46C978EFEE4691E6580D5F353CD415729B878930&pl=26&ip=136.0.98.84&mm=31&mn=sn-ab5l6n67&itag=36&ms=au&source=youtube&mv=u&dur=367.293&id=o-AN74uKHUeaD0aaidxltsAvEXQuR9dD2bgXcIJtoYV3BO&clen=10728358&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cexpire&lmt=1503546064583560&gir=yes&mime=video%2F3gpp&requiressl=yes&ei=Lc24WYiXGcal8gS65ZvIAQ&mt=1505283040&key=yt6&expire=1505304973&ratebypass=yes")!, loopCount: -1)
+    }
+    
+    func startShowingVideos() {
+        
+        let firstController = getPlayControllerWith(videoUrl: videoUrls[0])
+        
+        self.setViewControllers([firstController],
+                                direction: .forward,
+                                animated: false,
+                                completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //looper?.start(in: self.view.layer)
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
+
+extension RangePlayerVC: UIPageViewControllerDelegate {
     
+}
+
+extension RangePlayerVC: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        let videoUrl: URL = (viewController as! RangePlayerView).videoUrl
+        let index = videoUrls.index(of: videoUrl)! + 1
+        if index < 0 || index >= videoUrls.count {
+            return nil
+        }
+        
+        return getPlayControllerWith(videoUrl: videoUrls[index])
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        let videoUrl: URL = (viewController as! RangePlayerView).videoUrl
+        let index = videoUrls.index(of: videoUrl)! - 1
+        
+        if index < 0 || index >= videoUrls.count {
+            return nil
+        }
+        
+        return getPlayControllerWith(videoUrl: videoUrls[index])
+    }
+
+}
+
+extension RangePlayerVC {
+    func getPlayControllerWith(videoUrl: URL) -> RangePlayerView {
+        if controllerList[videoUrl] != nil {
+            bufferNextItems(currentUrl: videoUrl)
+            
+            return controllerList[videoUrl]!
+        }
+        
+        let vc = createPlayer(videoUrl: videoUrl)
+        
+        controllerList[videoUrl] = vc
+        
+        // buffer next looper
+        bufferNextItems(currentUrl: videoUrl)
+        
+        return vc
+    }
+    
+    func createLooper(videoUrl: URL) -> RangeLooper {
+        return RangeLooper(videoURL: videoUrl, loopCount: -1)
+    }
+    
+    func createPlayer(videoUrl: URL) -> RangePlayerView {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "range_player_view") as! RangePlayerView
+        
+        vc.videoUrl = videoUrl
+        vc.looper = createLooper(videoUrl: videoUrl)
+        vc.prepare()
+        
+        return vc
+    }
+
+    func bufferNextItems(currentUrl: URL) {
+        for index in 1...videoAhead {
+            let videoIndex = videoUrls.index(of: currentUrl)
+            let nextIndex = videoIndex! + index
+            if nextIndex >= videoUrls.count {
+                continue
+            }
+            
+            let nextUrl = videoUrls[nextIndex]
+            
+            if controllerList[nextUrl] != nil {
+                continue
+            }
+            
+            controllerList[nextUrl] = createPlayer(videoUrl: nextUrl)
+        }
+    }
+
 }

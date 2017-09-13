@@ -148,8 +148,23 @@
                     <view key="view" contentMode="scaleToFill" id="mOT-fc-wLe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbt-Ue-qLB">
+                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wbt-Ue-qLB" firstAttribute="centerY" secondItem="mOT-fc-wLe" secondAttribute="centerY" id="Gh2-JZ-hux"/>
+                            <constraint firstItem="wbt-Ue-qLB" firstAttribute="centerX" secondItem="mOT-fc-wLe" secondAttribute="centerX" id="QvZ-Jh-oak"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="status" destination="wbt-Ue-qLB" id="L9I-JD-mvl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="37l-jx-oMu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -166,8 +181,23 @@
                     <view key="view" contentMode="scaleToFill" id="grR-DB-6mS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzu-Wo-XTr">
+                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nzu-Wo-XTr" firstAttribute="centerX" secondItem="grR-DB-6mS" secondAttribute="centerX" id="2Vr-QB-P4x"/>
+                            <constraint firstItem="nzu-Wo-XTr" firstAttribute="centerY" secondItem="grR-DB-6mS" secondAttribute="centerY" id="Kee-ff-IoA"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="playerStatus" destination="nzu-Wo-XTr" id="EVQ-Ok-sWB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L04-7L-MQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
