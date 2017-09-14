@@ -8,6 +8,20 @@
 
 
 import AVFoundation
+import UIKit
+
+enum PlaybackError: Error {
+    case videoTrackIsNil
+    case playbackDurationIsNil
+    case playableStatusIsNil
+}
+
+protocol RangeLooperDelegate: class {
+    func onPlayerStatusChanged(status: AVPlayerLooperStatus)
+    func thumbnailIsReady(image: UIImage?)
+    func playbackStarted()
+    func onLoadError(error: PlaybackError)
+}
 
 class RangeLooper: NSObject {
     // MARK: Types
@@ -44,6 +58,14 @@ class RangeLooper: NSObject {
     
     private let videoURL: URL
     
+    private var itemReady = false
+    var visible = false
+    var parentLayer: CALayer!
+    var numberOfPlayerItems: Int = 1
+    let composition = AVMutableComposition()
+    
+    weak var delegate: RangeLooperDelegate? = nil
+    
     // MARK: Looper
     
     required init(videoURL: URL, loopCount: Int) {
@@ -51,44 +73,54 @@ class RangeLooper: NSObject {
         self.numberOfTimesToPlay = loopCount
         
         super.init()
+        
+        loadAssetItem()
     }
     
-    func start(in parentLayer: CALayer) {
-        stop()
-        
-        player = AVQueuePlayer()
-        playerLayer = AVPlayerLayer(player: player)
-        playerLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        
-        guard let playerLayer = playerLayer else { fatalError("Error creating player layer") }
-        playerLayer.frame = parentLayer.bounds
-        parentLayer.addSublayer(playerLayer)
-        
-        let videoAsset = AVURLAsset(url: videoURL)
-        
-        let start = CMTime(seconds: 0, preferredTimescale: 1)
-        let end = CMTime(seconds: 6, preferredTimescale: 1)
-        let timeRange = CMTimeRangeMake(start, end)
-        
-        let composition = AVMutableComposition()
-        let videoTrack: AVMutableCompositionTrack = composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-        try! videoTrack.insertTimeRange(timeRange, of: videoAsset.tracks(withMediaType: AVMediaTypeVideo).first!, at: CMTimeMake(0, 1))
-        
+    func loadAssetItem() {
+        DispatchQueue.global().async {
+            let videoAsset = AVURLAsset(url: self.videoURL)
+            let start = CMTime(seconds: 0, preferredTimescale: 1)
+            let end = CMTime(seconds: 6, preferredTimescale: 1)
+            let timeRange = CMTimeRangeMake(start, end)
+            
+            let videoTrack: AVMutableCompositionTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+            do {
+                let track = videoAsset.tracks(withMediaType: AVMediaTypeVideo).first
+                
+                guard let _ = track else {
+                    throw "video track is nil"
+                }
+                
+                try videoTrack.insertTimeRange(timeRange, of: track!, at: CMTimeMake(0, 1))
+            } catch let error {
+                self.delegate?.onLoadError(error: .videoTrackIsNil)
+                return
+            }
+            
+            print("composition created")
+            DispatchQueue.main.async {
+                self.loadAssetAsync(videoAsset: videoAsset, composition: self.composition)
+            }
+        }
+    }
+    
+    func loadAssetAsync(videoAsset: AVURLAsset, composition: AVMutableComposition) {
         videoAsset.loadValuesAsynchronously(forKeys: [ObserverContexts.urlAssetDurationKey, ObserverContexts.urlAssetPlayableKey]) {
-            /*
-             The asset invokes its completion handler on an arbitrary queue
-             when loading is complete. Because we want to access our AVQueuePlayer
-             in our ensuing set-up, we must dispatch our handler to the main
-             queue.
-             */
             DispatchQueue.main.async(execute: {
                 var durationError: NSError?
                 let durationStatus = videoAsset.statusOfValue(forKey: ObserverContexts.urlAssetDurationKey, error: &durationError)
-                guard durationStatus == .loaded else { fatalError("Failed to load duration property with error: \(durationError)") }
+                guard durationStatus == .loaded else {
+                    self.delegate?.onLoadError(error: .playbackDurationIsNil)
+                    return
+                }
                 
                 var playableError: NSError?
                 let playableStatus = videoAsset.statusOfValue(forKey: ObserverContexts.urlAssetPlayableKey, error: &playableError)
-                guard playableStatus == .loaded else { fatalError("Failed to read playable duration property with error: \(playableError)") }
+                guard playableStatus == .loaded else {
+                    self.delegate?.onLoadError(error: .playableStatusIsNil)
+                    return
+                }
                 
                 guard videoAsset.isPlayable else {
                     print("Can't loop since asset is not playable")
@@ -100,22 +132,48 @@ class RangeLooper: NSObject {
                     return
                 }
                 
-                /*
-                 Based on the duration of the asset, we decide the number of player
-                 items to add to demonstrate gapless playback of the same asset.
-                 */
-                let numberOfPlayerItems = (Int)(1.0 / CMTimeGetSeconds(videoAsset.duration)) + 2
+                print("asset loaded")
                 
-                for _ in 1...numberOfPlayerItems {
-                    let loopItem = AVPlayerItem(asset: composition)
-                    self.player?.insert(loopItem, after: nil)
+                self.numberOfPlayerItems = (Int)(1.0 / CMTimeGetSeconds(videoAsset.duration)) + 2
+
+                self.itemReady = true
+                
+                if self.visible {
+                    self.start(in: self.parentLayer)
                 }
-                
-                self.startObserving()
-                self.numberOfTimesPlayed = 0
-                self.player?.play()
             })
         }
+    }
+    
+    func start(in parentLayer: CALayer) {
+        print("start playback")
+        
+        self.parentLayer = parentLayer
+        
+        if !itemReady {
+            return
+        }
+
+        stop()
+        
+        player = AVQueuePlayer()
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+        
+        guard let playerLayer = playerLayer else { fatalError("Error creating player layer") }
+        playerLayer.frame = parentLayer.bounds
+        parentLayer.addSublayer(playerLayer)
+        
+        
+        for _ in 1...numberOfPlayerItems {
+            let loopItem = AVPlayerItem(asset: composition)
+            self.player?.insert(loopItem, after: nil)
+        }
+        
+        self.startObserving()
+        self.numberOfTimesPlayed = 0
+        self.player?.play()
+
     }
     
     func stop() {
@@ -207,4 +265,8 @@ class RangeLooper: NSObject {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
+}
+
+extension String: Error {
+    
 }

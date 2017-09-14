@@ -89,6 +89,7 @@ extension RangePlayerVC: UIPageViewControllerDataSource {
             return nil
         }
         
+        print("viewControllerAfter: ", index)
         return getPlayControllerWith(videoUrl: videoUrls[index])
     }
     
@@ -100,6 +101,7 @@ extension RangePlayerVC: UIPageViewControllerDataSource {
             return nil
         }
         
+        print("viewControllerBefore: ", index)
         return getPlayControllerWith(videoUrl: videoUrls[index])
     }
 

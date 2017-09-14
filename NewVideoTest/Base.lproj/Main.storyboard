@@ -182,26 +182,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzu-Wo-XTr">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzu-Wo-XTr">
                                 <rect key="frame" x="166" y="323" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="NZU-aB-92s">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R9C-Kj-a9T">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nzu-Wo-XTr" firstAttribute="centerX" secondItem="grR-DB-6mS" secondAttribute="centerX" id="2Vr-QB-P4x"/>
+                            <constraint firstItem="NZU-aB-92s" firstAttribute="centerX" secondItem="grR-DB-6mS" secondAttribute="centerX" id="4Dg-9a-Zsx"/>
+                            <constraint firstItem="bWN-5O-WqS" firstAttribute="top" secondItem="R9C-Kj-a9T" secondAttribute="bottom" id="GKb-M9-zEG"/>
+                            <constraint firstItem="NZU-aB-92s" firstAttribute="centerY" secondItem="grR-DB-6mS" secondAttribute="centerY" id="HU7-nZ-gbB"/>
                             <constraint firstItem="nzu-Wo-XTr" firstAttribute="centerY" secondItem="grR-DB-6mS" secondAttribute="centerY" id="Kee-ff-IoA"/>
+                            <constraint firstAttribute="trailing" secondItem="R9C-Kj-a9T" secondAttribute="trailing" id="Le1-Hj-KAn"/>
+                            <constraint firstItem="R9C-Kj-a9T" firstAttribute="top" secondItem="grR-DB-6mS" secondAttribute="top" id="MMo-dJ-jAP"/>
+                            <constraint firstItem="R9C-Kj-a9T" firstAttribute="leading" secondItem="grR-DB-6mS" secondAttribute="leading" id="jyl-4p-dtJ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="playerStatus" destination="nzu-Wo-XTr" id="EVQ-Ok-sWB"/>
+                        <outlet property="preview" destination="R9C-Kj-a9T" id="sa9-6U-cH7"/>
+                        <outlet property="progress" destination="NZU-aB-92s" id="aCa-mZ-OVl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L04-7L-MQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3538" y="1810"/>
+            <point key="canvasLocation" x="3536.8000000000002" y="1809.4452773613195"/>
         </scene>
         <!--PlayerVC-->
         <scene sceneID="60a-qK-jWt">
