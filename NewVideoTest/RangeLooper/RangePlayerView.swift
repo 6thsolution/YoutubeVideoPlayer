@@ -21,9 +21,6 @@ class RangePlayerView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var url = videoUrl.absoluteString
-        url = String(url.characters.suffix(20))
-        print("load controller for: ", url)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -37,6 +34,7 @@ class RangePlayerView: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
         showPreview(show: true)
     }
     
@@ -51,7 +49,6 @@ extension RangePlayerView: RangeLooperDelegate {
     }
     
     func thumbnailIsReady(image: UIImage?) {
-        print("thumbnailIsReady")
         thumbnail = image
         showPreview(show: true)
     }
@@ -78,6 +75,8 @@ extension RangePlayerView {
         guard let _ = preview, let _ = thumbnail else {
             return
         }
+        
+        print("showPreview: ", show)
         
         self.progress.stopAnimating()
         self.preview.image = self.thumbnail
