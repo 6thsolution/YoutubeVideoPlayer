@@ -89,14 +89,23 @@ class RangeLooper: NSObject {
             let timeRange = CMTimeRangeMake(start, end)
             
             let videoTrack: AVMutableCompositionTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+            
+            let audioTrack: AVMutableCompositionTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeAudio, preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+            
             do {
                 let track = videoAsset.tracks(withMediaType: AVMediaTypeVideo).first
+                let audio = videoAsset.tracks(withMediaType: AVMediaTypeAudio).first
                 
                 guard let _ = track else {
                     throw "video track is nil"
                 }
                 
+                guard let _ = audio else {
+                    throw "audio track is nil"
+                }
+                
                 try videoTrack.insertTimeRange(timeRange, of: track!, at: CMTimeMake(0, 1))
+                try audioTrack.insertTimeRange(timeRange, of: audio!, at: CMTimeMake(0, 1))
             } catch _ {
                 self.delegate?.onLoadError(error: .videoTrackIsNil)
                 return
@@ -154,6 +163,8 @@ class RangeLooper: NSObject {
                 print("asset loaded")
                 
                 self.numberOfPlayerItems = (Int)(1.0 / CMTimeGetSeconds(videoAsset.duration)) + 2
+                
+                print("numberOfPlayerItems: ", self.numberOfPlayerItems)
 
                 self.itemReady = true
                 
