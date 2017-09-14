@@ -11,13 +11,12 @@ import AVFoundation
 
 class RangePlayerView: UIViewController {
     @IBOutlet weak var progress: UIActivityIndicatorView!
-
     @IBOutlet weak var preview: UIImageView!
     @IBOutlet weak var playerStatus: UILabel!
+    
     var looper: RangeLooper?
     var videoUrl: URL!
     var thumbnail: UIImage?
-    var visible: Bool! = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,18 +24,14 @@ class RangePlayerView: UIViewController {
         var url = videoUrl.absoluteString
         url = String(url.characters.suffix(20))
         print("load controller for: ", url)
-        
-        looper?.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        visible = true
         looper?.visible = true
         looper?.start(in: view.layer)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        visible = false
         looper?.visible = false
         looper?.stop()
     }
@@ -46,7 +41,7 @@ class RangePlayerView: UIViewController {
     }
     
     func prepare() {
-        
+        looper?.delegate = self
     }
 }
 
@@ -56,6 +51,7 @@ extension RangePlayerView: RangeLooperDelegate {
     }
     
     func thumbnailIsReady(image: UIImage?) {
+        print("thumbnailIsReady")
         thumbnail = image
         showPreview(show: true)
     }
@@ -65,19 +61,40 @@ extension RangePlayerView: RangeLooperDelegate {
     }
     
     func onLoadError(error: PlaybackError) {
-        print("onLoadError: " , error.localizedDescription)
+        guard let _ = preview, let _ = progress, let _ = playerStatus else {
+            return
+        }
+        
+        preview.isHidden = true
+        progress.stopAnimating()
+        
+        playerStatus.isHidden = false
+        playerStatus.text = error.localizedDescription
     }
 }
 
 extension RangePlayerView {
     func showPreview(show: Bool) {
-        guard let _ = preview, let _ = thumbnail, !visible else {
+        guard let _ = preview, let _ = thumbnail else {
             return
         }
         
-        UIView.transition(with: preview, duration: 0.4, options: .curveEaseInOut, animations: {
-            self.progress.stopAnimating()
-            self.preview.isHidden = show
+        self.progress.stopAnimating()
+        self.preview.image = self.thumbnail
+
+//        if !show {
+//            UIView.transition(with: preview, duration: 0.5, options: .transitionCrossDissolve, animations: {
+//                self.preview.isHidden = !show
+//            }, completion: nil)
+//        } else {
+//            self.preview.isHidden = !show
+//        }
+
+//         self.preview.isHidden = !show
+        
+        UIView.transition(with: preview, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.preview.isHidden = !show
         }, completion: nil)
+        
     }
 }

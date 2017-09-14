@@ -14,6 +14,7 @@ enum PlaybackError: Error {
     case videoTrackIsNil
     case playbackDurationIsNil
     case playableStatusIsNil
+    case thumnailNil
 }
 
 protocol RangeLooperDelegate: class {
@@ -80,6 +81,9 @@ class RangeLooper: NSObject {
     func loadAssetItem() {
         DispatchQueue.global().async {
             let videoAsset = AVURLAsset(url: self.videoURL)
+            
+            self.sendThumbnail(videoAsset: videoAsset)
+            
             let start = CMTime(seconds: 0, preferredTimescale: 1)
             let end = CMTime(seconds: 6, preferredTimescale: 1)
             let timeRange = CMTimeRangeMake(start, end)
@@ -93,7 +97,7 @@ class RangeLooper: NSObject {
                 }
                 
                 try videoTrack.insertTimeRange(timeRange, of: track!, at: CMTimeMake(0, 1))
-            } catch let error {
+            } catch _ {
                 self.delegate?.onLoadError(error: .videoTrackIsNil)
                 return
             }
@@ -102,6 +106,21 @@ class RangeLooper: NSObject {
             DispatchQueue.main.async {
                 self.loadAssetAsync(videoAsset: videoAsset, composition: self.composition)
             }
+        }
+    }
+    
+    func sendThumbnail(videoAsset: AVURLAsset) {
+        do {
+            let imageGenerator = AVAssetImageGenerator(asset: videoAsset)
+            let time = CMTimeMake(1, 1)
+            let imageRef = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage(cgImage: imageRef)
+            
+            DispatchQueue.main.async {
+                self.delegate?.thumbnailIsReady(image: thumbnail)
+            }
+        } catch _ {
+            self.delegate?.onLoadError(error: .thumnailNil)
         }
     }
     
@@ -173,7 +192,8 @@ class RangeLooper: NSObject {
         self.startObserving()
         self.numberOfTimesPlayed = 0
         self.player?.play()
-
+        
+        delegate?.playbackStarted()
     }
     
     func stop() {
