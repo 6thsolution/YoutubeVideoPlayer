@@ -2,7 +2,7 @@
 //  RangePlayerVC.swift
 //  NewVideoTest
 //
-//  Created by papyrus on 9/13/17.
+//  Created by Mehdi Sohrabi (mehdok@gmail.com) on 9/13/17.
 //  Copyright © 2017 SixthSolution. All rights reserved.
 //
 
@@ -18,7 +18,7 @@ class RangePlayerVC: UIPageViewController {
     
     var videoUrls = [URL]()
     
-    let videoAhead = 2
+    let videoAhead = 4
     var controllerList = [URL: RangePlayerView]()
     
     required init?(coder: NSCoder) {
@@ -40,8 +40,8 @@ class RangePlayerVC: UIPageViewController {
                         
             XCDYouTubeClient.default().getVideoWithIdentifier(videoId, completionHandler: { (video, error) in
                 if let streamUrl = (video?.streamURLs[self.small] ??
-                    video?.streamURLs[self.medium] ??
-                    video?.streamURLs[self.hd]) {
+                    video?.streamURLs[self.hd] ??
+                    video?.streamURLs[self.medium]) {
                     
                     print("url received: ", videoId)
                     self.videoUrls.append(streamUrl)

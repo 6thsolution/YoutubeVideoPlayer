@@ -2,7 +2,7 @@
 //  SinglePlayerWebView.swift
 //  NewVideoTest
 //
-//  Created by papyrus on 9/5/17.
+//  Created by Mehdi Sohrabi (mehdok@gmail.com) on 9/5/17.
 //  Copyright © 2017 SixthSolution. All rights reserved.
 //
 

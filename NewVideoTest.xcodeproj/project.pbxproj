@@ -787,7 +787,7 @@
 				DEVELOPMENT_TEAM = 4759EGMM6V;
 				INFOPLIST_FILE = NewVideoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.YoutubeApi3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sixthsolution.YoutubeApi-724P-b4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -802,7 +802,7 @@
 				DEVELOPMENT_TEAM = 4759EGMM6V;
 				INFOPLIST_FILE = NewVideoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sixthsolution.YoutubeApi3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sixthsolution.YoutubeApi-724P-b4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
